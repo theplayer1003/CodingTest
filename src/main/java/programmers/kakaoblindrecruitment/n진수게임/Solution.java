@@ -1,4 +1,4 @@
-package programmers.kakaoblindrecuritment.n진수게임;
+package programmers.kakaoblindrecruitment.n진수게임;
 
 public class Solution {
 
