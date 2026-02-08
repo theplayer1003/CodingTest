@@ -1,4 +1,4 @@
-package programmers.kakaoblindrecruitment.문자열압축;
+package programmers.ct.kakaoblindrecruitment.문자열압축;
 
 public class Solution {
     public int solution(String target) {

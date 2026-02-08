@@ -1,4 +1,4 @@
-package programmers.kakaoblindrecruitment.파일명정렬;
+package programmers.ct.kakaoblindrecruitment.파일명정렬;
 
 import java.util.ArrayList;
 import java.util.Collections;

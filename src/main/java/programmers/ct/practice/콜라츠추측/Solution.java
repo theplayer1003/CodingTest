@@ -1,4 +1,4 @@
-package programmers.practice.콜라츠추측;
+package programmers.ct.practice.콜라츠추측;
 
 public class Solution {
     public int solution(int num) {

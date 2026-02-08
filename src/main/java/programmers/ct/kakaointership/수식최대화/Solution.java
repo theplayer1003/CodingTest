@@ -1,4 +1,4 @@
-package programmers.kakaointership.수식최대화;
+package programmers.ct.kakaointership.수식최대화;
 
 import java.util.ArrayList;
 import java.util.List;
