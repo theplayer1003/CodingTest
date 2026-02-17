@@ -50,3 +50,20 @@ ID      FISH_TYPE       LENGTH      FISH_NAME
 7       0               55          bass
 
 
+
+SELECT Fish.ID, Fishname.FISH_NAME, Fish.LENGTH
+FROM FISH_INFO AS Fish
+         JOIN FISH_NAME_INFO AS Fishname ON Fish.FISH_TYPE = Fishname.FISH_TYPE
+WHERE (Fish.FISH_TYPE, Fish.LENGTH) IN (SELECT FISH_TYPE, MAX(LENGTH) FROM FISH_INFO GROUP BY FISH_TYPE)
+ORDER BY Fish.ID ASC;
+
+
+
+
+
+
+
+
+
+
+
