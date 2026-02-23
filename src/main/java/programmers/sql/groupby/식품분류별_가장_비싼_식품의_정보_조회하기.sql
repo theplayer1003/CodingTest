@@ -1,0 +1,43 @@
+-- https://school.programmers.co.kr/learn/courses/30/lessons/131116
+
+SELECT Pr.CATEGORY, MAX(Pr.PRICE) AS MAX_PRICE, Pr.PRODUCT_NAME
+FROM FOOD_PRODUCT AS Pr
+WHERE Pr.CATEGORY IN ('과자', '국', '김치', '식용유')
+GROUP BY Pr.CATEGORY
+ORDER BY MAX_PRICE DESC;
+
+
+SELECT CATEGORY, PRICE AS MAX_PRICE, PRODUCT_NAME
+FROM FOOD_PRODUCT
+WHERE (CATEGORY, PRICE) IN (SELECT CATEGORY, MAX(PRICE)
+                            FROM FOOD_PRODUCT
+                            WHERE CATEGORY IN ('과자', '국', '김치', '식용유')
+                            GROUP BY CATEGORY)
+ORDER BY MAX_PRICE DESC;
+
+
+
+SELECT CATEGORY,
+       (
+           MAX(PRICE) OVER (PARTITION BY CATEGORY)
+           ) AS MAX_PRICE,
+       PRODUCT_NAME
+FROM FOOD_PRODUCT
+WHERE CATEGORY IN ('과자', '국', '김치', '식용유')
+ORDER BY MAX_PRICE DESC;
+
+
+SELECT CATEGORY, PRICE AS MAX_PRICE, PRODUCT_NAME
+FROM (SELECT CATEGORY,
+             PRICE,
+             PRODUCT_NAME,
+             RANK() OVER (PARTITION BY CATEGORY ORDER BY PRICE DESC) AS rnk
+      FROM FOOD_PRODUCT
+      WHERE CATEGORY IN ('과자', '국', '김치', '식용유')) AS RankedData
+WHERE rnk = 1
+ORDER BY MAX_PRICE DESC;
+
+
+/*
+
+ */
