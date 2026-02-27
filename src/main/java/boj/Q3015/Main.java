@@ -30,7 +30,7 @@ public class Main {
                 }
             }
 
-            monostack.offerLast(new Pair(currentHeight, ));
+            //monostack.offerLast(new Pair(currentHeight, ));
         }
 
         System.out.println(answer);
