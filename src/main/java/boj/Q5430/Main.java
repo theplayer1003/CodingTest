@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -12,46 +13,67 @@ public class Main {
 
         int T = Integer.parseInt(br.readLine());
 
-        Deque<Integer> deque = new ArrayDeque<>();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < T; i++) {
-            char[] order = br.readLine().toCharArray();
-            int arySize = Integer.parseInt(br.readLine());
-            String aryData = br.readLine();
-            aryData = aryData.replace("[", "");
-            aryData = aryData.replace("]", "");
-            String[] split = aryData.split(",");
+            String commands = br.readLine();
 
-            for (int j = 0; j < arySize; j++) {
-                deque.offerLast(Integer.parseInt(split[j]));
+            int aryLength = Integer.parseInt(br.readLine());
+
+            String numberString = br.readLine();
+            numberString = numberString.replace("[", "");
+            numberString = numberString.replace("]", "");
+            String[] split = numberString.split(",");
+
+            int[] ary = new int[aryLength];
+            for (int j = 0; j < aryLength; j++) {
+                ary[j] = Integer.parseInt(split[j]);
             }
 
-            for (int j = 0; j < order.length; j++) {
-                if (order[j] == 'R') {
-                    if (deque.isEmpty()) {
-                        sb.append("error").append("\n");
-                        break;
+            int head = 0;
+            int tail = aryLength - 1;
+            boolean reverseFlag = false;
+            for (char command : commands.toCharArray()) {
+                if (command == 'R') {
+                    int temp = tail;
+                    tail = head;
+                    head = temp;
+                    reverseFlag = true;
+                } else {
+                    if (!reverseFlag) {
+                        if (head > tail) {
+                            sb.append("error").append("\n");
+                            break;
+                        }
+                        head++;
+                    } else {
+                        if (tail > head) {
+                            sb.append("error").append("\n");
+                            break;
+                        }
+                        tail++;
                     }
-                    deque = deque.reversed();
-                }
-
-                if (order[j] == 'D') {
-                    if (deque.isEmpty()) {
-                        sb.append("error").append("\n");
-                        break;
-                    }
-                    deque.pollFirst();
                 }
             }
 
-            if (!deque.isEmpty()) {
-                sb.append("[");
-                while (!deque.isEmpty()) {
-                    sb.append(deque.pollFirst()).append(",");
+            sb.append("[");
+            if (!reverseFlag) {
+                while (head <= tail) {
+                    sb.append(ary[head]).append(",");
+                    head++;
                 }
-                sb.deleteCharAt(sb.length() - 1);
-                sb.append("]").append("\n");
+                if (sb.charAt(sb.length() - 1) == ',') {
+                    sb.deleteCharAt(sb.length() - 1).append("]").append("\n");
+                }
+            } else {
+                while (tail <= head) {
+                    sb.append(ary[tail]).append(",");
+                    tail++;
+                }
+                if (sb.charAt(sb.length() - 1) == ',') {
+                    sb.deleteCharAt(sb.length() - 1).append("]").append("\n");
+                }
             }
+
 
         }
 
